@@ -10,14 +10,22 @@ export default function Navbar({
   onLogout,
 }) {
   const [scrolled, setScrolled] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
+      const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
+      setScrollProgress(scrollableHeight > 0 ? (window.scrollY / scrollableHeight) * 100 : 0);
     };
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener('resize', handleScroll);
+    handleScroll();
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleScroll);
+    };
   }, []);
 
   const navItems = [
@@ -28,12 +36,13 @@ export default function Navbar({
     { id: 'about', label: 'About' },
     { id: 'insights', label: 'Insights' },
     { id: 'careers', label: 'Careers' },
+    // { id: 'faq', label: 'FAQ' },
+    // { id: 'contact', label: 'Contact' },
   ];
 
   const handleNavClick = (pageId) => {
     setActivePage(pageId);
     setMobileMenuOpen(false);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
@@ -44,6 +53,19 @@ export default function Navbar({
           : 'bg-white/80 backdrop-blur-sm py-4'
       }`}
     >
+      <div
+        className="absolute top-0 left-0 right-0 h-1 bg-blue-100/70"
+        role="progressbar"
+        aria-label="Page scroll progress"
+        aria-valuemin="0"
+        aria-valuemax="100"
+        aria-valuenow={Math.round(scrollProgress)}
+      >
+        <div
+          className="h-full bg-gradient-to-r from-blue-600 to-cyan-400 transition-[width] duration-150"
+          style={{ width: `${scrollProgress}%` }}
+        />
+      </div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
           
@@ -70,7 +92,7 @@ export default function Navbar({
           </div>
 
           {/* Desktop Navigation Links */}
-          <nav className="hidden md:flex items-center space-x-1 lg:space-x-2 bg-slate-50/80 px-3 py-1.5 rounded-full border border-slate-200/60 shadow-inner">
+          <nav className="hidden xl:flex items-center space-x-1 lg:space-x-2 bg-slate-50/80 px-3 py-1.5 rounded-full border border-slate-200/60 shadow-inner">
             {navItems.map((item) => {
               const isActive = activePage === item.id;
               return (
@@ -93,7 +115,7 @@ export default function Navbar({
           </nav>
 
           {/* Right Action: Admin Login/Dashboard + Let's Talk CTA */}
-          <div className="hidden md:flex items-center gap-3">
+          <div className="hidden xl:flex items-center gap-3">
             
             {/* Admin Portal Toggle */}
             {adminUser ? (
@@ -140,7 +162,7 @@ export default function Navbar({
           </div>
 
           {/* Mobile Menu Toggle */}
-          <div className="flex md:hidden items-center gap-2">
+          <div className="flex xl:hidden items-center gap-2">
             {adminUser ? (
               <button
                 onClick={onOpenAdminDashboard}
@@ -178,7 +200,7 @@ export default function Navbar({
 
       {/* Mobile Menu Dropdown */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-xl px-4 pt-3 pb-6 space-y-2 animate-fadeIn">
+        <div className="xl:hidden bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-xl px-4 pt-3 pb-6 space-y-2 animate-fadeIn">
           {navItems.map((item) => {
             const isActive = activePage === item.id;
             return (

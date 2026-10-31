@@ -14,6 +14,7 @@ import {
   Server,
 } from 'lucide-react';
 import ServiceCard from '../components/ServiceCard';
+import DevelopmentLifecycle from '../components/DevelopmentLifecycle';
 
 export default function Services({ setActivePage }) {
   const [selectedService, setSelectedService] = useState(null);
@@ -128,7 +129,7 @@ export default function Services({ setActivePage }) {
   ];
 
   return (
-    <div className="pt-28 pb-20">
+    <div className="services-page pt-28 pb-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* ================= HEADER SECTION ================= */}
@@ -161,7 +162,7 @@ export default function Services({ setActivePage }) {
         </div>
 
         {/* ================= 6 SERVICES GRID ================= */}
-        <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-7 items-stretch">
           {servicesList.map((service) => (
             <ServiceCard
               key={service.id}
@@ -220,6 +221,8 @@ export default function Services({ setActivePage }) {
             </div>
           </div>
         </div>
+
+        <DevelopmentLifecycle />
 
       </div>
 

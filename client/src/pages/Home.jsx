@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   ArrowRight,
   Sparkles,
@@ -15,8 +15,56 @@ import {
   ShieldCheck,
   Award,
 } from 'lucide-react';
+import CoreEngineeringStack from '../components/CoreEngineeringStack';
+import BrandMarquee from '../components/BrandMarquee';
+
+const heroPhrases = ['Digital Products', 'AI Solutions', 'Robotics Systems', 'SaaS Platforms'];
 
 export default function Home({ setActivePage }) {
+  const [phraseIndex, setPhraseIndex] = useState(0);
+  const [displayedPhrase, setDisplayedPhrase] = useState(heroPhrases[0]);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(
+    () => window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false,
+  );
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const updateMotionPreference = (event) => setPrefersReducedMotion(event.matches);
+
+    mediaQuery.addEventListener('change', updateMotionPreference);
+    return () => mediaQuery.removeEventListener('change', updateMotionPreference);
+  }, []);
+
+  useEffect(() => {
+    if (prefersReducedMotion) {
+      setDisplayedPhrase(heroPhrases[0]);
+      setIsDeleting(false);
+      setPhraseIndex(0);
+      return undefined;
+    }
+
+    const currentPhrase = heroPhrases[phraseIndex];
+    let delay;
+
+    if (!isDeleting && displayedPhrase === currentPhrase) {
+      delay = window.setTimeout(() => setIsDeleting(true), 1700);
+    } else if (isDeleting && displayedPhrase.length === 0) {
+      delay = window.setTimeout(() => {
+        setPhraseIndex((index) => (index + 1) % heroPhrases.length);
+        setIsDeleting(false);
+      }, 260);
+    } else {
+      delay = window.setTimeout(() => {
+        setDisplayedPhrase((phrase) => (
+          isDeleting ? phrase.slice(0, -1) : currentPhrase.slice(0, phrase.length + 1)
+        ));
+      }, isDeleting ? 38 : 72);
+    }
+
+    return () => window.clearTimeout(delay);
+  }, [displayedPhrase, isDeleting, phraseIndex, prefersReducedMotion]);
+
   const stats = [
     { value: '50+', label: 'Projects Delivered', desc: 'Across 12 countries' },
     { value: '30+', label: 'Happy Clients', desc: 'From startups to enterprise' },
@@ -27,11 +75,51 @@ export default function Home({ setActivePage }) {
   const partners = [
     { name: 'AWS', icon: 'aws', label: 'Amazon Web Services' },
     { name: 'Google Cloud', icon: 'gcp', label: 'Google Cloud Platform' },
-    { name: 'OpenAI', icon: 'openai', label: 'OpenAI API Partner' },
+    { name: 'OpenAI', icon: 'openai', label: 'OpenAI' },
     { name: 'Meta', icon: 'meta', label: 'Meta Developer' },
     { name: 'Microsoft', icon: 'msft', label: 'Microsoft for Startups' },
     { name: 'Vercel', icon: 'vercel', label: 'Vercel Cloud' },
   ];
+
+  const renderPartner = ({ name, icon, label }) => (
+    <div
+      key={name}
+      className="flex shrink-0 items-center gap-2 font-semibold text-slate-800"
+      aria-label={label}
+    >
+      {icon === 'aws' && <span className="text-2xl font-black">aws</span>}
+      {icon === 'gcp' && (
+        <>
+          <span className="h-3 w-3 rounded-full bg-blue-500" />
+          <span className="text-base">Google Cloud</span>
+        </>
+      )}
+      {icon === 'openai' && (
+        <>
+          <Cpu className="h-5 w-5 text-emerald-600" />
+          <span className="text-base">OpenAI</span>
+        </>
+      )}
+      {icon === 'meta' && <span className="text-lg font-black">∞ Meta</span>}
+      {icon === 'msft' && (
+        <>
+          <span className="grid h-4 w-4 grid-cols-2 gap-0.5" aria-hidden="true">
+            <span className="bg-red-500" />
+            <span className="bg-green-500" />
+            <span className="bg-blue-500" />
+            <span className="bg-amber-500" />
+          </span>
+          <span className="text-base">Microsoft</span>
+        </>
+      )}
+      {icon === 'vercel' && (
+        <>
+          <span className="text-sm">▲</span>
+          <span className="text-base">Vercel</span>
+        </>
+      )}
+    </div>
+  );
 
   return (
     <div className="pt-24 pb-16 overflow-hidden">
@@ -53,10 +141,15 @@ export default function Home({ setActivePage }) {
             </div>
 
             {/* Headline */}
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight leading-[1.12]">
+            <h1
+              aria-label="We turn ambitious ideas into digital products, AI solutions, robotics systems, and SaaS platforms that matter."
+              className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight leading-[1.12]"
+            >
               We Turn Ambitious Ideas Into{' '}
-              <span className="bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-500 bg-clip-text text-transparent">
-                Digital Products
+              <span className="hero-typewriter" aria-hidden="true">
+                <span className="hero-typewriter-measure">Robotics Systems</span>
+                <span className="hero-typewriter-text">{displayedPhrase}</span>
+                {!prefersReducedMotion && <span className="hero-typewriter-caret" />}
               </span>{' '}
               That Matter.
             </h1>
@@ -187,48 +280,23 @@ export default function Home({ setActivePage }) {
           <p className="text-xs font-semibold tracking-wider text-slate-400 uppercase mb-8">
             Built with Enterprise-Grade Platforms & Leading Technologies
           </p>
-          <div className="flex flex-wrap items-center justify-center gap-8 sm:gap-14 opacity-75 grayscale hover:grayscale-0 transition-all duration-300">
-            
-            {/* AWS */}
-            <div className="flex items-center gap-2 font-bold text-slate-800 text-lg hover:text-amber-600 transition-colors">
-              <span className="text-2xl font-black">aws</span>
-            </div>
-
-            {/* Google Cloud */}
-            <div className="flex items-center gap-2 font-semibold text-slate-800 text-base hover:text-blue-600 transition-colors">
-              <span className="w-3 h-3 rounded-full bg-blue-500"></span>
-              <span>Google Cloud</span>
-            </div>
-
-            {/* OpenAI */}
-            <div className="flex items-center gap-2 font-bold text-slate-800 text-base hover:text-emerald-700 transition-colors">
-              <Cpu className="w-5 h-5 text-emerald-600" />
-              <span>OpenAI</span>
-            </div>
-
-            {/* Meta */}
-            <div className="flex items-center gap-2 font-black text-slate-800 text-lg hover:text-blue-500 transition-colors">
-              <span>∞ Meta</span>
-            </div>
-
-            {/* Microsoft */}
-            <div className="flex items-center gap-2 font-semibold text-slate-800 text-base hover:text-sky-600 transition-colors">
-              <div className="grid grid-cols-2 gap-0.5 w-4 h-4">
-                <span className="bg-red-500"></span>
-                <span className="bg-green-500"></span>
-                <span className="bg-blue-500"></span>
-                <span className="bg-amber-500"></span>
+          <div
+            className="partner-marquee"
+            role="region"
+            aria-label="Technology platforms and tools"
+          >
+            <div className="partner-marquee-track">
+              <div className="partner-marquee-group">
+                {partners.map(renderPartner)}
               </div>
-              <span>Microsoft</span>
-            </div>
-
-            {/* Vercel */}
-            <div className="flex items-center gap-2 font-bold text-slate-900 text-base hover:text-black transition-colors">
-              <span className="text-sm">▲</span>
-              <span>Vercel</span>
+              <div className="partner-marquee-group" aria-hidden="true">
+                {partners.map(renderPartner)}
+              </div>
             </div>
           </div>
         </div>
+
+        <CoreEngineeringStack />
 
         {/* ================= QUICK HIGHLIGHTS TEASER ================= */}
         <div className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -315,6 +383,7 @@ export default function Home({ setActivePage }) {
         </div>
 
       </div>
+      <BrandMarquee />
     </div>
   );
 }

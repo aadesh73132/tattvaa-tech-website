@@ -169,7 +169,7 @@ export default function ProductCard({
   return (
     <div
       onClick={onSelect}
-      className="group relative bg-white rounded-2xl p-6 border border-slate-200/90 shadow-sm hover:shadow-xl hover:border-blue-300 transition-all duration-300 cursor-pointer flex flex-col justify-between hover:-translate-y-1.5"
+      className="product-card group relative bg-white rounded-2xl p-6 border border-slate-200/90 shadow-sm hover:shadow-xl hover:border-blue-300 transition-all duration-300 cursor-pointer flex flex-col justify-between hover:-translate-y-1.5"
     >
       <div>
         {/* Top Header with Icon and Category */}

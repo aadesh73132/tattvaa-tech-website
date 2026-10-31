@@ -11,6 +11,7 @@ import About from './pages/About';
 import Insights from './pages/Insights';
 import Careers from './pages/Careers';
 import Contact from './pages/Contact';
+import FAQ from './pages/FAQ';
 
 // Admin System
 import AdminAuthModal from './components/admin/AdminAuthModal';
@@ -30,6 +31,154 @@ export default function App() {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [adminUser, setAdminUser] = useState(null);
   const [adminToken, setAdminToken] = useState(null);
+
+  const navigateToSection = (pageId) => {
+    setActivePage(pageId);
+    document.getElementById(pageId)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    window.history.replaceState(null, '', `#${pageId}`);
+  };
+
+  useEffect(() => {
+    const sectionIds = ['home', 'services', 'products', 'work', 'about', 'insights', 'careers', 'faq', 'contact'];
+    let ticking = false;
+
+    const updateScrollState = () => {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(() => {
+        const currentSection = sectionIds
+          .filter((id) => {
+            const section = document.getElementById(id);
+            return section && section.getBoundingClientRect().top <= 140;
+          })
+          .pop();
+        if (currentSection) setActivePage(currentSection);
+        ticking = false;
+      });
+    };
+
+    const initialHash = window.location.hash.slice(1);
+    if (sectionIds.includes(initialHash)) {
+      window.requestAnimationFrame(() => {
+        document.getElementById(initialHash)?.scrollIntoView({ block: 'start' });
+        updateScrollState();
+      });
+    }
+
+    updateScrollState();
+    window.addEventListener('scroll', updateScrollState, { passive: true });
+    window.addEventListener('resize', updateScrollState);
+    return () => {
+      window.removeEventListener('scroll', updateScrollState);
+      window.removeEventListener('resize', updateScrollState);
+    };
+  }, []);
+
+  useEffect(() => {
+    const main = document.querySelector('main');
+    if (!main) return undefined;
+
+    const hasCardSurface = (element) => {
+      if (!(element instanceof HTMLElement)) return false;
+      if (element.matches('article, .glass-card')) return true;
+
+      const classes = Array.from(element.classList);
+      const hasRoundedShape = classes.some((className) => /^rounded-(xl|2xl|3xl)$/.test(className));
+      const hasCardShadow = classes.some((className) => /^shadow-(sm|md|lg|xl|2xl)$/.test(className));
+      const hasPadding = classes.some((className) => /^p-(\d+(?:\.\d+)?|px|py|pt|pb|pl|pr)(?:-|$)/.test(className));
+      return hasRoundedShape && hasCardShadow && hasPadding;
+    };
+
+    const prepareCards = (node) => {
+      if (!(node instanceof HTMLElement)) return;
+      const candidates = [];
+      if (hasCardSurface(node)) candidates.push(node);
+      candidates.push(...node.querySelectorAll('article, .glass-card, [class*="rounded-"][class*="shadow-"]'));
+
+      candidates.forEach((card) => {
+        if (!(card instanceof HTMLElement) || !hasCardSurface(card)) return;
+        if (!card.closest('main')) return;
+        if (card.closest('.product-card, .work-card, .contact-form-card') || card.matches('.lifecycle-step-card')) return;
+        if (card.parentElement?.closest('.tilt-card')) return;
+        card.classList.add('tilt-card');
+      });
+    };
+
+    prepareCards(main);
+
+    const mutationObserver = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        mutation.addedNodes.forEach(prepareCards);
+      });
+    });
+    mutationObserver.observe(main, { childList: true, subtree: true });
+
+    const canTilt = window.matchMedia('(hover: hover) and (pointer: fine)');
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let activeCard = null;
+
+    const resetTilt = (card) => {
+      if (!card) return;
+      card.classList.remove('is-tilting');
+      card.style.removeProperty('--tilt-x');
+      card.style.removeProperty('--tilt-y');
+      card.style.removeProperty('--tilt-shadow-x');
+      card.style.removeProperty('--tilt-shadow-y');
+    };
+
+    const handlePointerMove = (event) => {
+      if (event.pointerType !== 'mouse' || !canTilt.matches || reduceMotion.matches) return;
+
+      const target = event.target;
+      const nextCard = target instanceof Element ? target.closest('.tilt-card') : null;
+      if (activeCard !== nextCard) {
+        resetTilt(activeCard);
+        activeCard = nextCard && main.contains(nextCard) ? nextCard : null;
+      }
+
+      if (!activeCard) return;
+
+      const bounds = activeCard.getBoundingClientRect();
+      if (!bounds.width || !bounds.height) return;
+      if (bounds.width / bounds.height > 1.6) {
+        resetTilt(activeCard);
+        activeCard = null;
+        return;
+      }
+
+      const horizontalPosition = Math.max(-0.5, Math.min(0.5, (event.clientX - bounds.left) / bounds.width - 0.5));
+      const verticalPosition = Math.max(-0.5, Math.min(0.5, (event.clientY - bounds.top) / bounds.height - 0.5));
+
+      activeCard.style.setProperty('--tilt-x', `${(verticalPosition * -30).toFixed(2)}deg`);
+      activeCard.style.setProperty('--tilt-y', `${(horizontalPosition * 30).toFixed(2)}deg`);
+      activeCard.style.setProperty('--tilt-shadow-x', `${(horizontalPosition * -24).toFixed(1)}px`);
+      activeCard.style.setProperty('--tilt-shadow-y', `${(verticalPosition * -24 + 20).toFixed(1)}px`);
+      activeCard.classList.add('is-tilting');
+    };
+
+    const handlePointerLeave = () => {
+      resetTilt(activeCard);
+      activeCard = null;
+    };
+
+    const handleMotionPreferenceChange = () => {
+      if (reduceMotion.matches || !canTilt.matches) handlePointerLeave();
+    };
+
+    main.addEventListener('pointermove', handlePointerMove, { passive: true });
+    main.addEventListener('pointerleave', handlePointerLeave);
+    reduceMotion.addEventListener('change', handleMotionPreferenceChange);
+    canTilt.addEventListener('change', handleMotionPreferenceChange);
+
+    return () => {
+      mutationObserver.disconnect();
+      main.removeEventListener('pointermove', handlePointerMove);
+      main.removeEventListener('pointerleave', handlePointerLeave);
+      reduceMotion.removeEventListener('change', handleMotionPreferenceChange);
+      canTilt.removeEventListener('change', handleMotionPreferenceChange);
+      resetTilt(activeCard);
+    };
+  }, []);
 
   // Initialize admin state from localStorage
   useEffect(() => {
@@ -68,7 +217,7 @@ export default function App() {
     setAdminUser(null);
     setAdminToken(null);
     setIsAdminView(false);
-    setActivePage('home');
+    navigateToSection('home');
   };
 
   const handleOpenAdminPortal = () => {
@@ -115,36 +264,12 @@ export default function App() {
     );
   }
 
-  // Render Public Website
-  const renderPublicPage = () => {
-    switch (activePage) {
-      case 'home':
-        return <Home setActivePage={setActivePage} />;
-      case 'services':
-        return <Services setActivePage={setActivePage} />;
-      case 'products':
-        return <Products setActivePage={setActivePage} />;
-      case 'work':
-        return <Work setActivePage={setActivePage} />;
-      case 'about':
-        return <About setActivePage={setActivePage} />;
-      case 'insights':
-        return <Insights setActivePage={setActivePage} />;
-      case 'careers':
-        return <Careers setActivePage={setActivePage} />;
-      case 'contact':
-        return <Contact />;
-      default:
-        return <Home setActivePage={setActivePage} />;
-    }
-  };
-
   return (
     <div className="min-h-screen flex flex-col bg-[#f8fbff] text-slate-800 antialiased relative">
       {/* Navbar with Admin Portal Trigger */}
       <Navbar
         activePage={activePage}
-        setActivePage={setActivePage}
+        setActivePage={navigateToSection}
         adminUser={adminUser}
         onOpenAdminAuth={() => setIsAuthModalOpen(true)}
         onOpenAdminDashboard={handleOpenAdminPortal}
@@ -153,11 +278,37 @@ export default function App() {
 
       {/* Main Public View */}
       <main className="flex-1">
-        {renderPublicPage()}
+        <section id="home" className="public-section">
+          <Home setActivePage={navigateToSection} />
+        </section>
+        <section id="services" className="public-section">
+          <Services setActivePage={navigateToSection} />
+        </section>
+        <section id="products" className="public-section">
+          <Products setActivePage={navigateToSection} />
+        </section>
+        <section id="work" className="public-section">
+          <Work setActivePage={navigateToSection} />
+        </section>
+        <section id="about" className="public-section">
+          <About setActivePage={navigateToSection} />
+        </section>
+        <section id="insights" className="public-section">
+          <Insights setActivePage={navigateToSection} />
+        </section>
+        <section id="careers" className="public-section">
+          <Careers setActivePage={navigateToSection} />
+        </section>
+        <section id="faq" className="public-section">
+          <FAQ setActivePage={navigateToSection} />
+        </section>
+        <section id="contact" className="public-section">
+          <Contact />
+        </section>
       </main>
 
       {/* Footer */}
-      <Footer setActivePage={setActivePage} />
+      <Footer setActivePage={navigateToSection} />
 
       {/* Admin Authentication Modal (Login / Signup) */}
       <AdminAuthModal

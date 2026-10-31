@@ -12,6 +12,11 @@ import {
   Lightbulb,
   Award,
   Sparkles,
+  Palette,
+  Bot,
+  Globe,
+  Rocket,
+  Layers,
 } from 'lucide-react';
 
 export default function About({ setActivePage }) {
@@ -21,7 +26,7 @@ export default function About({ setActivePage }) {
     { value: '50+', label: 'Projects' },
     { value: '30+', label: 'Clients' },
     { value: '5+', label: 'Products' },
-    { value: '4+', label: 'Years Experience' },
+    { value: '3+', label: 'Offices' },
   ];
 
   const pillars = [
@@ -61,7 +66,7 @@ export default function About({ setActivePage }) {
       focus: 'Vision, Product Strategy & AI Architecture',
     },
     {
-      name: 'Dev Aggarwal',
+      name: 'Dev Agarwal',
       role: 'Co Founder',
       initials: 'DA',
       gradient: 'from-cyan-600 via-blue-600 to-indigo-600',
@@ -80,13 +85,13 @@ export default function About({ setActivePage }) {
             About Tattvaa Tech
           </span>
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
-            More Than Development.{' '}
+            Technology, AI, Robotics & Digital Solutions{' '}
             <span className="bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">
-              A Long-Term Technology Partner.
+              Built for Real-World Impact
             </span>
           </h1>
           <p className="text-base sm:text-lg text-slate-600 leading-relaxed">
-            We are a team of builders, designers and problem-solvers passionate about using technology to create meaningful impact.
+            Tattvaa Tech is a technology and innovation company providing software, AI, robotics, digital, creative, and business solutions for startups, businesses, educational institutions, and organizations. We help our clients turn ideas into practical, scalable, and cost-effective solutions that create real business value.
           </p>
         </div>
 
@@ -100,6 +105,61 @@ export default function About({ setActivePage }) {
               <div className="text-sm font-semibold text-slate-700 mt-1">{item.label}</div>
             </div>
           ))}
+        </div>
+
+        <div className="mb-16 grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <article className="lg:col-span-3 rounded-3xl border border-slate-200 bg-white p-7 sm:p-9 shadow-sm">
+            <div className="flex items-start gap-4">
+              <div className="w-12 h-12 shrink-0 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center">
+                <Layers className="w-6 h-6" />
+              </div>
+              <div>
+                <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900">One ecosystem for technology, creativity, and growth</h2>
+                <p className="mt-3 text-sm sm:text-base text-slate-600 leading-relaxed">
+                  Our expertise covers custom software, web and mobile app development, AI and machine learning, AI agents, automation, IoT, robotics, UI/UX and graphic design, video editing, branding, digital marketing, SEO, AEO, GEO, content creation, and digital product development. We bring technology, creativity, and business understanding together to help organizations launch, grow, automate, and compete in the digital world.
+                </p>
+              </div>
+            </div>
+          </article>
+
+          <article className="rounded-3xl border border-blue-100 bg-gradient-to-br from-blue-50 to-white p-7 shadow-sm">
+            <div className="w-12 h-12 rounded-2xl bg-blue-600 text-white flex items-center justify-center mb-5">
+              <Bot className="w-6 h-6" />
+            </div>
+            <h2 className="text-lg font-extrabold text-slate-900">Robotics & Intelligent Automation</h2>
+            <p className="mt-3 text-sm text-slate-600 leading-relaxed">
+              We design custom robotic systems around each project’s requirements, use cases, and budget—from robot design and architecture to prototypes, AI-powered and autonomous systems, educational and service robots, sensor integration, embedded systems, computer vision, and automation.
+            </p>
+            <p className="mt-3 text-sm text-slate-600 leading-relaxed">
+              Our goal is to make practical, reliable, cost-effective robotics accessible to startups, schools, colleges, research institutions, and small businesses—not only large organizations.
+            </p>
+          </article>
+
+          <article className="rounded-3xl border border-cyan-100 bg-gradient-to-br from-cyan-50 to-white p-7 shadow-sm">
+            <div className="w-12 h-12 rounded-2xl bg-cyan-600 text-white flex items-center justify-center mb-5">
+              <Palette className="w-6 h-6" />
+            </div>
+            <h2 className="text-lg font-extrabold text-slate-900">Digital & Creative Solutions</h2>
+            <p className="mt-3 text-sm text-slate-600 leading-relaxed">
+              Our digital and creative team builds strong online presences through UI/UX and website design, graphic design, video editing, social media content, branding, SEO, AEO, GEO, digital marketing, and content creation.
+            </p>
+            <p className="mt-3 text-sm text-slate-600 leading-relaxed">
+              From a distinct brand identity to a complete digital platform, clients can work with one connected technology and creative team.
+            </p>
+          </article>
+
+          <article className="rounded-3xl border border-indigo-100 bg-gradient-to-br from-indigo-50 to-white p-7 shadow-sm">
+            <div className="w-12 h-12 rounded-2xl bg-indigo-600 text-white flex items-center justify-center mb-5">
+              <Rocket className="w-6 h-6" />
+            </div>
+            <h2 className="text-lg font-extrabold text-slate-900">From Idea to Deployment</h2>
+            <p className="mt-3 text-sm text-slate-600 leading-relaxed">
+              Whether you need a website, mobile app, AI solution, automation system, custom robot, SaaS product, brand identity, or digital marketing, our team can support the complete journey: strategy and design, development, testing, deployment, marketing, and ongoing improvements.
+            </p>
+            <p className="mt-3 text-sm text-slate-600 leading-relaxed">
+              We collaborate with international startups, businesses, agencies, and technology companies through project-based and white-label development, dedicated teams, outsourcing, and long-term technology partnerships.
+            </p>
+          </article>
         </div>
 
         {/* ================= MAIN OFFICE / TEAM VISUAL (Screen 5) ================= */}
@@ -168,51 +228,19 @@ export default function About({ setActivePage }) {
           ))}
         </div>
 
-        {/* ================= CULTURE & VALUES ================= */}
-        <div className="mt-20 bg-gradient-to-br from-slate-50 to-blue-50/50 rounded-3xl p-8 sm:p-12 border border-slate-200">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
-            <div className="space-y-4">
-              <span className="text-xs font-bold text-blue-600 uppercase tracking-widest">Our DNA</span>
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900">
-                Craftsmanship Meets Relentless Execution
-              </h2>
-              <p className="text-sm text-slate-600 leading-relaxed">
-                Tattvaa Tech was founded with a singular purpose: to close the gap between visionary ideas and scalable production software. We reject bloatware and slow corporate timelines.
+        {/* ================= VISION ================= */}
+        <div className="mt-20 relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-950 via-blue-950 to-indigo-950 p-8 sm:p-12 text-white shadow-xl">
+          <div className="absolute -right-20 -top-24 h-72 w-72 rounded-full bg-blue-500/20 blur-3xl" />
+          <div className="relative grid grid-cols-1 lg:grid-cols-[1fr_auto] items-center gap-8">
+            <div className="max-w-3xl space-y-4">
+              <span className="text-xs font-bold uppercase tracking-[0.2em] text-cyan-300">Our Vision</span>
+              <h2 className="text-2xl sm:text-3xl font-extrabold">Make innovation more accessible, practical, and affordable.</h2>
+              <p className="text-sm sm:text-base leading-relaxed text-blue-100">
+                We aspire to build a globally trusted technology company that makes software, AI, robotics, automation, and digital solutions accessible to more people and organizations. At Tattvaa Tech, we don’t just provide services—we build solutions that help businesses turn ideas into real-world impact.
               </p>
-              <div className="space-y-2 pt-2">
-                <div className="flex items-center gap-2 text-xs text-slate-700">
-                  <CheckCircle className="w-4 h-4 text-blue-600 flex-shrink-0" />
-                  <span>Senior engineers who write clean, battle-tested code</span>
-                </div>
-                <div className="flex items-center gap-2 text-xs text-slate-700">
-                  <CheckCircle className="w-4 h-4 text-blue-600 flex-shrink-0" />
-                  <span>Modern continuous deployment pipelines with 100% test coverage</span>
-                </div>
-                <div className="flex items-center gap-2 text-xs text-slate-700">
-                  <CheckCircle className="w-4 h-4 text-blue-600 flex-shrink-0" />
-                  <span>Ethical AI systems with zero security compromises</span>
-                </div>
-              </div>
             </div>
-
-            <div className="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm space-y-4">
-              <h4 className="text-sm font-bold text-slate-900">Leadership Philosophy</h4>
-              <p className="text-xs text-slate-600 leading-relaxed">
-                "Our measure of success is not merely delivering a repository of code. It is whether your users are delighted, your operational overhead decreases, and your business captures the market."
-              </p>
-              <div className="pt-2 flex items-center justify-between border-t border-slate-100">
-                <div>
-                  <div className="text-xs font-bold text-slate-900">Tattvaa Tech Leadership Team</div>
-                  <div className="text-[10px] text-blue-600">Engineering & Design Directors</div>
-                </div>
-                <button
-                  onClick={() => setActivePage('contact')}
-                  className="text-xs font-semibold text-blue-600 hover:text-blue-700 inline-flex items-center gap-1"
-                >
-                  <span>Connect with Us</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </button>
-              </div>
+            <div className="hidden lg:flex h-20 w-20 items-center justify-center rounded-3xl border border-white/15 bg-white/10">
+              <Globe className="h-10 w-10 text-cyan-300" />
             </div>
           </div>
         </div>

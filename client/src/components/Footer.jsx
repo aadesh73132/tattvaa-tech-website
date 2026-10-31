@@ -127,6 +127,11 @@ export default function Footer({ setActivePage }) {
                   Careers
                 </button>
               </li>
+              <li>
+                <button onClick={() => handleNav('faq')} className="hover:text-blue-400 transition-colors">
+                  FAQ
+                </button>
+              </li>
             </ul>
           </div>
 
@@ -185,7 +190,7 @@ export default function Footer({ setActivePage }) {
               </li>
               <li className="flex items-start gap-2.5">
                 <MapPin className="w-4 h-4 text-blue-400 mt-0.5 flex-shrink-0" />
-                <span>Gurugram • Gwalior • Saharanpur</span>
+                <span>Gwalior, Madhya Pradesh</span>
               </li>
             </ul>
             <div className="pt-2">
@@ -202,7 +207,7 @@ export default function Footer({ setActivePage }) {
         </div>
 
         {/* Office Locations Strip */}
-        <div className="py-10 border-b border-slate-800/80">
+        {/* <div className="py-10 border-b border-slate-800/80">
           <div className="flex items-center gap-2 mb-6">
             <Building2 className="w-4 h-4 text-blue-400" />
             <h4 className="text-xs font-bold uppercase tracking-widest text-slate-400">
@@ -211,7 +216,7 @@ export default function Footer({ setActivePage }) {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-            {/* Gurugram */}
+           
             <div className="p-4 rounded-2xl bg-slate-800/60 border border-slate-700/60 hover:border-slate-600 transition-colors">
               <div className="flex items-center gap-2 mb-2">
                 <span className="w-2 h-2 rounded-full bg-blue-400"></span>
@@ -222,7 +227,7 @@ export default function Footer({ setActivePage }) {
               </p>
             </div>
 
-            {/* Gwalior */}
+            
             <div className="p-4 rounded-2xl bg-slate-800/60 border border-slate-700/60 hover:border-slate-600 transition-colors">
               <div className="flex items-center gap-2 mb-2">
                 <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
@@ -233,7 +238,7 @@ export default function Footer({ setActivePage }) {
               </p>
             </div>
 
-            {/* Saharanpur */}
+            
             <div className="p-4 rounded-2xl bg-slate-800/60 border border-slate-700/60 hover:border-slate-600 transition-colors">
               <div className="flex items-center gap-2 mb-2">
                 <span className="w-2 h-2 rounded-full bg-purple-400"></span>
@@ -244,7 +249,7 @@ export default function Footer({ setActivePage }) {
               </p>
             </div>
           </div>
-        </div>
+        </div> */}
 
         {/* Bottom Bar */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">

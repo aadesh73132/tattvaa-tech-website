@@ -214,7 +214,7 @@ export default function Work({ setActivePage }) {
               <div
                 key={study._id}
                 onClick={() => setSelectedCaseStudy(study)}
-                className="group bg-white rounded-2xl p-6 border border-slate-200/90 shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer flex flex-col justify-between hover:-translate-y-1.5 text-left"
+                className="work-card group bg-white rounded-2xl p-6 border border-slate-200/90 shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer flex flex-col justify-between hover:-translate-y-1.5 text-left"
               >
                 <div>
                   {/* Visual Preview Screenshot / Mockup */}

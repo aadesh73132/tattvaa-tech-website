@@ -194,7 +194,7 @@ export default function Contact() {
 
           {/* ================= RIGHT COLUMN: FORM CARD (Screen 7) ================= */}
           <div className="lg:col-span-6">
-            <div className="bg-white rounded-3xl p-7 sm:p-10 border border-slate-200/90 shadow-xl shadow-blue-500/5 text-left">
+            <div className="contact-form-card bg-white rounded-3xl p-7 sm:p-10 border border-slate-200/90 shadow-xl shadow-blue-500/5 text-left">
               
               <h3 className="text-xl font-bold text-slate-900 mb-6">
                 Send us a Message
