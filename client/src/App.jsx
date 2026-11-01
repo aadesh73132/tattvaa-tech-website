@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import WhatsAppChatWidget from './components/WhatsAppChatWidget';
 
 // Public Pages
 import Home from './pages/Home';
@@ -98,7 +99,7 @@ export default function App() {
       candidates.forEach((card) => {
         if (!(card instanceof HTMLElement) || !hasCardSurface(card)) return;
         if (!card.closest('main')) return;
-        if (card.closest('.product-card, .work-card, .contact-form-card') || card.matches('.lifecycle-step-card')) return;
+        if (card.closest('.tilt-exempt-modal, .product-card, .work-card, .contact-form-card, .location-card, .home-hero-orbit-stage, .about-page') || card.matches('.lifecycle-step-card')) return;
         if (card.parentElement?.closest('.tilt-card')) return;
         card.classList.add('tilt-card');
       });
@@ -252,15 +253,18 @@ export default function App() {
     };
 
     return (
-      <AdminLayout
-        activeTab={adminTab}
-        setActiveTab={setAdminTab}
-        adminUser={adminUser}
-        onLogout={handleLogout}
-        onBackToPublicSite={() => setIsAdminView(false)}
-      >
-        {renderAdminTab()}
-      </AdminLayout>
+      <>
+        <AdminLayout
+          activeTab={adminTab}
+          setActiveTab={setAdminTab}
+          adminUser={adminUser}
+          onLogout={handleLogout}
+          onBackToPublicSite={() => setIsAdminView(false)}
+        >
+          {renderAdminTab()}
+        </AdminLayout>
+        <WhatsAppChatWidget />
+      </>
     );
   }
 
@@ -309,6 +313,8 @@ export default function App() {
 
       {/* Footer */}
       <Footer setActivePage={navigateToSection} />
+
+      <WhatsAppChatWidget />
 
       {/* Admin Authentication Modal (Login / Signup) */}
       <AdminAuthModal

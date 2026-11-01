@@ -13,6 +13,7 @@ import {
   FolderGit2,
 } from 'lucide-react';
 import { fetchPublicProjects } from '../services/api';
+import './Work.css';
 
 export default function Work({ setActivePage }) {
   const [activeFilter, setActiveFilter] = useState('All');
@@ -80,7 +81,7 @@ export default function Work({ setActivePage }) {
               </div>
             </div>
             <div className="bg-slate-900/60 p-2 rounded text-[10px] text-slate-300 flex items-center justify-between border border-slate-800/60">
-              <span className="text-blue-400">🤖 Autonomous Lead scoring active</span>
+              <span className="text-blue-400"> Autonomous Lead scoring active</span>
               <span className="text-[9px] text-slate-500 font-mono">Just now</span>
             </div>
           </div>
@@ -150,32 +151,29 @@ export default function Work({ setActivePage }) {
   };
 
   return (
-    <div className="pt-28 pb-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* ================= HEADER SECTION (Screen 6) ================= */}
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-8 border-b border-slate-200/80">
-          <div className="max-w-2xl space-y-3 text-left">
-            <span className="text-xs font-bold tracking-widest text-blue-600 uppercase">
-              Our Work
-            </span>
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
-              Real Solutions. Real Impact.
-            </h1>
-            <p className="text-base sm:text-lg text-slate-600 leading-relaxed">
-              Explore how we've helped businesses across industries build, launch and scale digital products.
-            </p>
+    <div className="work-page pb-20">
+      <section className="work-feature-header">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="work-feature-content">
+            <div className="max-w-4xl text-left">
+              <span className="work-feature-eyebrow">Proof of Execution</span>
+              <h1 className="work-feature-title">Featured Enterprise Systems</h1>
+              <p className="work-feature-description">
+                Production platforms designed, engineered, and scaled for enterprise clients.
+              </p>
+            </div>
+            {/* <button
+              onClick={() => setActivePage('contact')}
+              className="flex items-center gap-2 px-6 py-3 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm shadow-md shadow-blue-500/25 transition-all self-start lg:self-end"
+            >
+              <span>View All Case Studies</span>
+              <ArrowRight className="w-4 h-4" />
+            </button> */}
           </div>
-
-          <button
-            onClick={() => setActivePage('contact')}
-            className="flex items-center gap-2 px-6 py-3 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm shadow-md shadow-blue-500/25 transition-all self-start lg:self-auto"
-          >
-            <span>View All Case Studies</span>
-            <ArrowRight className="w-4 h-4" />
-          </button>
         </div>
+      </section>
 
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12">
         {/* ================= FILTER PILLS (Screen 6) ================= */}
         <div className="mt-8 flex flex-wrap items-center gap-2.5">
           {filters.map((filter) => {
@@ -270,7 +268,7 @@ export default function Work({ setActivePage }) {
 
       {/* ================= CASE STUDY DETAIL MODAL ================= */}
       {selectedCaseStudy && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-sm animate-fadeIn text-left">
+        <div className="tilt-exempt-modal fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-sm animate-fadeIn text-left">
           <div className="bg-white rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl border border-slate-200 relative max-h-[90vh] overflow-y-auto">
             <button
               onClick={() => setSelectedCaseStudy(null)}

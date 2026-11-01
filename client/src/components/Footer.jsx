@@ -60,7 +60,7 @@ export default function Footer({ setActivePage }) {
               >
                 <Instagram className="w-4 h-4" />
               </a>
-              <a
+              {/* <a
                 href="https://twitter.com"
                 target="_blank"
                 rel="noreferrer"
@@ -69,8 +69,8 @@ export default function Footer({ setActivePage }) {
                 title="Twitter"
               >
                 <Twitter className="w-4 h-4" />
-              </a>
-              <a
+              </a> */}
+              {/* <a
                 href="https://github.com"
                 target="_blank"
                 rel="noreferrer"
@@ -79,9 +79,9 @@ export default function Footer({ setActivePage }) {
                 title="GitHub"
               >
                 <Github className="w-4 h-4" />
-              </a>
+              </a> */}
               <a
-                href="https://tattvatech.com"
+                href="https://tattvaa-tech-website-h8np.vercel.app/"
                 target="_blank"
                 rel="noreferrer"
                 className="w-9 h-9 rounded-full bg-slate-800 hover:bg-blue-600 text-slate-400 hover:text-white flex items-center justify-center transition-all duration-200"

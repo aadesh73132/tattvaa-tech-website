@@ -14,9 +14,12 @@ import {
   Users,
   ShieldCheck,
   Award,
+  Bot,
+  Palette,
 } from 'lucide-react';
 import CoreEngineeringStack from '../components/CoreEngineeringStack';
 import BrandMarquee from '../components/BrandMarquee';
+import './Home.css';
 
 const heroPhrases = ['Digital Products', 'AI Solutions', 'Robotics Systems', 'SaaS Platforms'];
 
@@ -70,6 +73,21 @@ export default function Home({ setActivePage }) {
     { value: '30+', label: 'Happy Clients', desc: 'From startups to enterprise' },
     { value: '5+', label: 'Products in Development', desc: 'High-growth SaaS tools' },
     { value: '100%', label: 'Client Satisfaction', desc: 'Transparent & on-time' },
+  ];
+
+  const heroServices = [
+    { title: 'AI & Automation', detail: 'Smarter Workflows', icon: Zap, color: 'blue' },
+    { title: 'SaaS Products', detail: 'Ready to Scale', icon: Layers, color: 'emerald' },
+    { title: 'Web & Mobile Apps', detail: 'Built for Growth', icon: Smartphone, color: 'cyan' },
+    { title: 'Robotics & IoT', detail: 'Intelligent Systems', icon: Bot, color: 'violet' },
+    { title: 'UI/UX Design', detail: 'Human-Centered', icon: Palette, color: 'indigo' },
+    { title: 'Digital Growth', detail: 'Reach More Customers', icon: TrendingUp, color: 'amber' },
+  ];
+
+  const heroServiceOrbits = [
+    { duration: '30s', services: heroServices.slice(0, 2) },
+    { duration: '38s', services: heroServices.slice(2, 4) },
+    { duration: '46s', services: heroServices.slice(4, 6) },
   ];
 
   const partners = [
@@ -195,67 +213,51 @@ export default function Home({ setActivePage }) {
             </div>
           </div>
 
-          {/* Right Hero Graphic: Sculpted 3D 'T' & Floating Glass Cards */}
+          {/* Right Hero Graphic: rotating service orbit around the Tattvaa logo */}
           <div className="lg:col-span-5 relative flex items-center justify-center">
-            
-            {/* Glowing Backdrop Circle */}
-            <div className="absolute w-80 h-80 rounded-full bg-gradient-to-tr from-blue-400/20 via-cyan-300/30 to-blue-600/10 blur-2xl animate-pulse-subtle pointer-events-none"></div>
-
-            {/* Central 3D Ribbon 'T' Graphic Container */}
-            <div className="relative w-72 h-72 sm:w-88 sm:h-88 flex items-center justify-center">
-              
-              {/* Official 3D T Ribbon Logo Image */}
+            <div
+              className="home-hero-orbit-stage"
+              role="img"
+              aria-label="Tattvaa Tech services orbiting its logo: AI and automation, SaaS products, web and mobile apps, robotics and IoT, UI/UX design, and digital growth"
+            >
+              <div className="home-hero-orbit-glow" aria-hidden="true" />
+              <div className="home-hero-orbit-line" aria-hidden="true" />
               <img
                 src="/t-logo.png"
-                alt="Tattvaa Tech Logo"
-                className="w-64 h-64 sm:w-80 sm:h-80 object-contain drop-shadow-[0_25px_40px_rgba(37,99,235,0.38)] animate-float-slow select-none transition-transform hover:scale-105 duration-500"
+                alt=""
+                className="home-hero-orbit-logo"
               />
-
-              {/* Floating Card 1: AI & Automation (Top-Right) */}
-              <div className="absolute -top-4 -right-2 sm:-right-6 bg-white/95 backdrop-blur-md px-3.5 py-2.5 rounded-2xl border border-blue-100 shadow-xl shadow-blue-500/10 flex items-center gap-2.5 animate-float-medium select-none">
-                <div className="w-8 h-8 rounded-xl bg-blue-500 text-white flex items-center justify-center shadow-sm">
-                  <Zap className="w-4 h-4 fill-current" />
-                </div>
-                <div>
-                  <div className="text-xs font-bold text-slate-900">AI & Automation</div>
-                  <div className="text-[10px] text-blue-600 font-medium">Smarter Workflows</div>
-                </div>
-              </div>
-
-              {/* Floating Card 2: SaaS Products (Middle-Left) */}
-              <div className="absolute top-28 -left-4 sm:-left-8 bg-white/95 backdrop-blur-md px-3.5 py-2.5 rounded-2xl border border-emerald-100 shadow-xl shadow-emerald-500/10 flex items-center gap-2.5 animate-float-slow select-none">
-                <div className="w-8 h-8 rounded-xl bg-emerald-500 text-white flex items-center justify-center shadow-sm">
-                  <Layers className="w-4 h-4" />
-                </div>
-                <div>
-                  <div className="text-xs font-bold text-slate-900">SaaS Products</div>
-                  <div className="text-[10px] text-emerald-600 font-medium">Ready to Scale</div>
-                </div>
-              </div>
-
-              {/* Floating Card 3: Web & Mobile Apps (Bottom-Left) */}
-              <div className="absolute -bottom-4 left-4 bg-white/95 backdrop-blur-md px-4 py-2.5 rounded-2xl border border-cyan-100 shadow-xl shadow-cyan-500/10 flex items-center gap-2.5 animate-float-medium select-none">
-                <div className="w-8 h-8 rounded-xl bg-cyan-500 text-white flex items-center justify-center shadow-sm">
-                  <Smartphone className="w-4 h-4" />
-                </div>
-                <div>
-                  <div className="text-xs font-bold text-slate-900">Web & Mobile Apps</div>
-                  <div className="text-[10px] text-cyan-600 font-medium">Built for Growth</div>
-                </div>
-              </div>
-
-              {/* Floating Card 4: Strategy Flowchart (Bottom-Right) */}
-              <div className="absolute bottom-6 -right-2 sm:-right-4 bg-white/90 backdrop-blur-md px-3 py-2 rounded-xl border border-slate-200/90 shadow-md text-left select-none text-[9px]">
-                <span className="font-bold text-slate-700">Ideas</span>
-                <span className="text-blue-500 mx-1">➔</span>
-                <span className="font-medium text-slate-600">Strategy</span>
-                <span className="text-blue-500 mx-1">➔</span>
-                <span className="font-medium text-slate-600">Dev</span>
-                <span className="text-blue-500 mx-1">➔</span>
-                <span className="font-bold text-emerald-600">Growth</span>
+              <div className="home-hero-orbits" aria-hidden="true">
+                {heroServiceOrbits.map(({ duration, services }, orbitIndex) => (
+                  <div
+                    className={`home-hero-orbit home-hero-orbit-${orbitIndex + 1}`}
+                    key={services[0].title}
+                    style={{ '--orbit-duration': duration }}
+                  >
+                    <div className="home-hero-orbit-rotator">
+                      {services.map(({ title, detail, icon: ServiceIcon, color }, serviceIndex) => (
+                        <div
+                          className={`home-hero-orbit-anchor home-hero-orbit-anchor-${serviceIndex + 1}`}
+                          key={title}
+                        >
+                          <div className="home-hero-orbit-counter">
+                            <div className={`home-hero-service-badge home-hero-service-${color}`}>
+                              <span className="home-hero-service-icon">
+                                <ServiceIcon className="h-4 w-4" />
+                              </span>
+                              <span className="home-hero-service-copy">
+                                <span className="home-hero-service-title">{title}</span>
+                                <span className="home-hero-service-detail">{detail}</span>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
-
           </div>
 
         </div>

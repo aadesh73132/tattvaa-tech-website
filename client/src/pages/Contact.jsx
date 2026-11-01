@@ -11,10 +11,10 @@ import {
   Sparkles,
   Instagram,
   Linkedin,
-  Building2,
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { sendContactMessage } from '../services/contactService';
+import './Contact.css';
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -27,6 +27,25 @@ export default function Contact() {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(null);
   const [error, setError] = useState(null);
+
+  const handleSculpturePointerMove = (event) => {
+    if (
+      event.pointerType !== 'mouse' ||
+      window.matchMedia('(hover: hover) and (pointer: fine)').matches === false ||
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    ) return;
+
+    const bounds = event.currentTarget.getBoundingClientRect();
+    const x = (event.clientX - bounds.left) / bounds.width - 0.5;
+    const y = (event.clientY - bounds.top) / bounds.height - 0.5;
+    event.currentTarget.style.setProperty('--sculpture-rotate-x', `${(y * -12).toFixed(2)}deg`);
+    event.currentTarget.style.setProperty('--sculpture-rotate-y', `${(x * 12).toFixed(2)}deg`);
+  };
+
+  const resetSculptureTilt = (event) => {
+    event.currentTarget.style.setProperty('--sculpture-rotate-x', '0deg');
+    event.currentTarget.style.setProperty('--sculpture-rotate-y', '0deg');
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -75,9 +94,16 @@ export default function Contact() {
           {/* ================= LEFT COLUMN (Screen 7) ================= */}
           <div className="lg:col-span-6 space-y-6 text-left">
             
-            <span className="text-xs font-bold tracking-widest text-blue-600 uppercase">
-              Get in Touch
-            </span>
+            <div className="flex items-center gap-3">
+              <img
+                src="/t-logo.png"
+                alt="Tattvaa Tech"
+                className="h-10 w-10 object-contain"
+              />
+              <span className="text-xs font-bold tracking-widest text-blue-600 uppercase">
+                Get in Touch
+              </span>
+            </div>
 
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
               Let's Build Something Amazing Together.
@@ -153,40 +179,69 @@ export default function Contact() {
               </a>
             </div>
 
-            {/* Stylized 3D Paper Plane Graphic (Matching Screen 7) */}
-            <div className="pt-4 relative flex items-center justify-start">
-              <div className="relative w-48 h-36">
-                {/* Glowing trail */}
-                <div className="absolute top-8 left-4 w-32 h-16 bg-gradient-to-r from-blue-400/20 via-sky-300/30 to-transparent blur-xl"></div>
-                
-                {/* 3D Paper Plane SVG with faceted shading */}
-                <svg
-                  className="w-40 h-32 drop-shadow-[0_15px_25px_rgba(37,99,235,0.25)] animate-float-medium"
-                  viewBox="0 0 200 160"
-                  fill="none"
-                >
-                  <defs>
-                    <linearGradient id="planeGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor="#93c5fd" />
-                      <stop offset="100%" stopColor="#3b82f6" />
-                    </linearGradient>
-                    <linearGradient id="planeGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor="#38bdf8" />
-                      <stop offset="100%" stopColor="#1d4ed8" />
-                    </linearGradient>
-                    <linearGradient id="planeGrad3" x1="0%" y1="100%" x2="100%" y2="0%">
-                      <stop offset="0%" stopColor="#1e40af" />
-                      <stop offset="100%" stopColor="#60a5fa" />
-                    </linearGradient>
-                  </defs>
+            <div className="contact-sculpture pt-4 relative flex items-center justify-start">
+              <div
+                className="contact-sculpture-interactive relative h-40 w-full max-w-[17rem] touch-pan-y"
+                onPointerMove={handleSculpturePointerMove}
+                onPointerLeave={resetSculptureTilt}
+              >
+                <div className="contact-sculpture-glow" />
+                <div className="contact-sculpture-float">
+                  <svg
+                    className="contact-sculpture-model"
+                    viewBox="0 0 280 190"
+                    role="img"
+                    aria-label="Floating blue glass-like geometric technology sculpture"
+                    fill="none"
+                  >
+                    <defs>
+                      <linearGradient id="sculptureTop" x1="83" y1="29" x2="182" y2="89" gradientUnits="userSpaceOnUse">
+                        <stop stopColor="#F0FCFF" stopOpacity=".96" />
+                        <stop offset=".42" stopColor="#7DD3FC" stopOpacity=".88" />
+                        <stop offset="1" stopColor="#2563EB" stopOpacity=".94" />
+                      </linearGradient>
+                      <linearGradient id="sculptureLeft" x1="80" y1="61" x2="126" y2="152" gradientUnits="userSpaceOnUse">
+                        <stop stopColor="#BAE6FD" stopOpacity=".9" />
+                        <stop offset=".52" stopColor="#38BDF8" stopOpacity=".88" />
+                        <stop offset="1" stopColor="#1D4ED8" />
+                      </linearGradient>
+                      <linearGradient id="sculptureRight" x1="137" y1="73" x2="186" y2="135" gradientUnits="userSpaceOnUse">
+                        <stop stopColor="#60A5FA" stopOpacity=".94" />
+                        <stop offset=".55" stopColor="#2563EB" stopOpacity=".94" />
+                        <stop offset="1" stopColor="#172554" />
+                      </linearGradient>
+                      <linearGradient id="sculptureCore" x1="105" y1="70" x2="165" y2="132" gradientUnits="userSpaceOnUse">
+                        <stop stopColor="white" stopOpacity=".8" />
+                        <stop offset=".35" stopColor="#BAE6FD" stopOpacity=".24" />
+                        <stop offset="1" stopColor="#38BDF8" stopOpacity=".06" />
+                      </linearGradient>
+                      <linearGradient id="sculptureOrbit" x1="43" y1="90" x2="232" y2="111" gradientUnits="userSpaceOnUse">
+                        <stop stopColor="#93C5FD" stopOpacity=".08" />
+                        <stop offset=".5" stopColor="#38BDF8" stopOpacity=".72" />
+                        <stop offset="1" stopColor="#2563EB" stopOpacity=".12" />
+                      </linearGradient>
+                      <filter id="sculptureShadow" x="48" y="16" width="188" height="166" colorInterpolationFilters="sRGB" filterUnits="userSpaceOnUse">
+                        <feGaussianBlur stdDeviation="9" />
+                      </filter>
+                    </defs>
 
-                  {/* Right Wing */}
-                  <polygon points="20,130 180,20 120,140" fill="url(#planeGrad1)" />
-                  {/* Left Wing / Center fold */}
-                  <polygon points="20,130 180,20 70,85" fill="url(#planeGrad2)" />
-                  {/* Under body keel */}
-                  <polygon points="70,85 120,140 100,155" fill="url(#planeGrad3)" opacity="0.9" />
-                </svg>
+                    <ellipse cx="141" cy="151" rx="76" ry="15" fill="#2563EB" fillOpacity=".22" filter="url(#sculptureShadow)" />
+                    <ellipse cx="140" cy="96" rx="94" ry="35" stroke="url(#sculptureOrbit)" strokeWidth="1.5" transform="rotate(-18 140 96)" />
+                    <ellipse cx="140" cy="96" rx="78" ry="28" stroke="#BAE6FD" strokeOpacity=".24" strokeWidth="1" transform="rotate(32 140 96)" />
+                    <circle cx="224" cy="66" r="3.5" fill="#BAE6FD" />
+                    <circle cx="59" cy="122" r="2.5" fill="#60A5FA" />
+
+                    <path d="M140 26 190 58 184 112 137 151 82 119 77 62 140 26Z" fill="#1D4ED8" fillOpacity=".12" stroke="#DBF4FF" strokeOpacity=".62" strokeWidth="1.2" />
+                    <path d="m140 26 50 32-53 34-60-30 63-36Z" fill="url(#sculptureTop)" />
+                    <path d="m77 62 60 30v59l-55-32-5-57Z" fill="url(#sculptureLeft)" />
+                    <path d="m137 92 53-34-6 54-47 39V92Z" fill="url(#sculptureRight)" />
+                    <path d="m140 26 8 64-11 2-60-30 63-36Z" fill="url(#sculptureCore)" />
+                    <path d="m137 92 53-34-34 51-19 42V92Z" fill="#BFDBFE" fillOpacity=".2" />
+                    <path d="m82 62 58-36M137 92l47 20M82 119l55-27" stroke="white" strokeOpacity=".55" strokeWidth="1.2" />
+                    <path d="m93 69 37 19M145 39l34 21M91 111l37 23" stroke="white" strokeOpacity=".32" strokeWidth="2" strokeLinecap="round" />
+                    <path d="M108 54 140 35" stroke="white" strokeOpacity=".74" strokeWidth="2" strokeLinecap="round" />
+                  </svg>
+                </div>
               </div>
             </div>
 
@@ -299,7 +354,7 @@ export default function Contact() {
               </form>
 
               <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400">
-                <span>🔒 Strict NDA & Client Confidentiality</span>
+                <span>Strict NDA & Client Confidentiality</span>
                 <span>Response within 24h</span>
               </div>
 
@@ -322,54 +377,78 @@ export default function Contact() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="location-cards grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* Gurugram */}
-            <div className="bg-white rounded-3xl p-7 border border-slate-200/90 shadow-sm hover:shadow-md hover:border-blue-300 transition-all text-left group">
-              <div className="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center mb-5 group-hover:bg-blue-600 group-hover:text-white transition-colors">
-                <Building2 className="w-6 h-6" />
-              </div>
-              <div className="inline-block text-[11px] font-bold text-blue-600 uppercase bg-blue-50 px-2.5 py-1 rounded-full mb-3">
+            <article className="location-card group">
+              <img
+                alt="DLF CyberHub in Gurugram"
+                className="location-card-image"
+                loading="lazy"
+                src="/images/gurugram-landmark.png"
+              />
+              <div className="location-card-shade" />
+              <div className="location-card-content">
+                <div className="inline-block text-[11px] font-bold text-blue-100 uppercase bg-blue-950/45 border border-white/20 px-2.5 py-1 rounded-full mb-3">
                 Haryana
+                </div>
+                <h3 className="text-lg font-bold text-white mb-2">Gurugram Office</h3>
+                <p className="text-sm text-white/85 leading-relaxed">
+                  South City - 2, Sector 49, Gurugram, Haryana
+                </p>
+                <p className="location-photo-credit">
+                  {/* Photo: <a href="https://commons.wikimedia.org/wiki/File:DLF_CyberHub_Gurgaon.jpg" rel="noreferrer" target="_blank">ADARSH23456789</a> */}
+                  {/* {' · CC0'} */}
+                </p>
               </div>
-              <h3 className="text-lg font-bold text-slate-900 mb-2">
-                Gurugram Office
-              </h3>
-              <p className="text-sm text-slate-600 leading-relaxed">
-                South City - 2, Sector 49, Gurugram, Haryana
-              </p>
-            </div>
+            </article>
 
             {/* Gwalior */}
-            <div className="bg-white rounded-3xl p-7 border border-slate-200/90 shadow-sm hover:shadow-md hover:border-emerald-300 transition-all text-left group">
-              <div className="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center mb-5 group-hover:bg-emerald-600 group-hover:text-white transition-colors">
-                <Building2 className="w-6 h-6" />
-              </div>
-              <div className="inline-block text-[11px] font-bold text-emerald-600 uppercase bg-emerald-50 px-2.5 py-1 rounded-full mb-3">
+            <article className="location-card group">
+              <img
+                alt="Historic Gwalior Fort"
+                className="location-card-image"
+                loading="lazy"
+                src="/images/gwalior-fort.jpg"
+              />
+              <div className="location-card-shade" />
+              <div className="location-card-content">
+                <div className="inline-block text-[11px] font-bold text-emerald-100 uppercase bg-emerald-950/45 border border-white/20 px-2.5 py-1 rounded-full mb-3">
                 Madhya Pradesh
+                </div>
+                <h3 className="text-lg font-bold text-white mb-2">Gwalior Office</h3>
+                <p className="text-sm text-white/85 leading-relaxed">
+                  Tansen Nagar, Gwalior, Madhya Pradesh
+                </p>
+                <p className="location-photo-credit">
+                  {/* Photo: <a href="https://commons.wikimedia.org/wiki/File:Gwalior_Fort_front.jpg" rel="noreferrer" target="_blank">Anuppyr007</a> */}
+                  {/* {' · '} */}
+                  {/* <a href="https://creativecommons.org/licenses/by-sa/4.0/" rel="noreferrer" target="_blank">CC BY-SA 4.0</a> */}
+                </p>
               </div>
-              <h3 className="text-lg font-bold text-slate-900 mb-2">
-                Gwalior Office
-              </h3>
-              <p className="text-sm text-slate-600 leading-relaxed">
-                Tansen Nagar, Gwalior, Madhya Pradesh
-              </p>
-            </div>
+            </article>
 
             {/* Saharanpur */}
-            <div className="bg-white rounded-3xl p-7 border border-slate-200/90 shadow-sm hover:shadow-md hover:border-purple-300 transition-all text-left group">
-              <div className="w-12 h-12 rounded-2xl bg-purple-50 text-purple-600 flex items-center justify-center mb-5 group-hover:bg-purple-600 group-hover:text-white transition-colors">
-                <Building2 className="w-6 h-6" />
-              </div>
-              <div className="inline-block text-[11px] font-bold text-purple-600 uppercase bg-purple-50 px-2.5 py-1 rounded-full mb-3">
+            <article className="location-card group">
+              <img
+                alt="Gandhi Park in Saharanpur at sunset"
+                className="location-card-image location-card-image-saharanpur"
+                loading="lazy"
+                src="/images/saharanpur-office.png"
+              />
+              <div className="location-card-shade" />
+              <div className="location-card-content">
+                <div className="inline-block text-[11px] font-bold text-purple-100 uppercase bg-purple-950/45 border border-white/20 px-2.5 py-1 rounded-full mb-3">
                 Uttar Pradesh
+                </div>
+                <h3 className="text-lg font-bold text-white mb-2">Saharanpur Office</h3>
+                <p className="text-sm text-white/85 leading-relaxed">
+                  6/1400 New Jawahar Park, Behind Bhuteshwar Mandir, Raghav Puram, Saharanpur, Uttar Pradesh
+                </p>
+                {/* <p className="location-photo-credit"> */}
+                  {/* Saharanpur landmark image */}
+                {/* </p> */}
               </div>
-              <h3 className="text-lg font-bold text-slate-900 mb-2">
-                Saharanpur Office
-              </h3>
-              <p className="text-sm text-slate-600 leading-relaxed">
-                6/1400 New Jawahar Park, Behind Bhuteshwar Mandir, Raghav Puram, Saharanpur, Uttar Pradesh
-              </p>
-            </div>
+            </article>
           </div>
         </div>
 

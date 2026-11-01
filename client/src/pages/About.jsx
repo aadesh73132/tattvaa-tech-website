@@ -1,7 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
-  Play,
-  X,
   Target,
   MessageSquare,
   Users,
@@ -14,14 +12,20 @@ import {
   Sparkles,
   Palette,
   Bot,
-  Globe,
   Rocket,
   Layers,
+  BookOpen,
+  HeartHandshake,
+  MessageCircle,
+  UsersRound,
+  Settings,
+  KeyRound,
+  MonitorSmartphone,
+  Eye,
 } from 'lucide-react';
+import './About.css';
 
 export default function About({ setActivePage }) {
-  const [videoModalOpen, setVideoModalOpen] = useState(false);
-
   const stats = [
     { value: '50+', label: 'Projects' },
     { value: '30+', label: 'Clients' },
@@ -75,8 +79,19 @@ export default function About({ setActivePage }) {
     },
   ];
 
+  const workLifeBenefits = [
+    { title: 'Learning & Development', icon: BookOpen, color: 'pink' },
+    { title: 'Mindful Personal Guidance', icon: HeartHandshake, color: 'purple' },
+    { title: 'Constructive Feedback', icon: MessageCircle, color: 'blue' },
+    { title: 'Inclusive & Open Culture', icon: UsersRound, color: 'teal' },
+    { title: 'Innovation & Quality First', icon: Lightbulb, color: 'orange' },
+    { title: 'Proactive Implementation', icon: Settings, color: 'cyan' },
+    { title: 'Global Opportunities', icon: KeyRound, color: 'rose' },
+    { title: 'Latest Technology', icon: MonitorSmartphone, color: 'indigo' },
+  ];
+
   return (
-    <div className="pt-28 pb-20">
+    <div className="about-page pt-28 pb-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* ================= HEADER SECTION (Screen 5) ================= */}
@@ -162,52 +177,6 @@ export default function About({ setActivePage }) {
           </article>
         </div>
 
-        {/* ================= MAIN OFFICE / TEAM VISUAL (Screen 5) ================= */}
-        <div className="relative rounded-3xl overflow-hidden shadow-2xl border border-slate-200 bg-slate-900 min-h-[380px] sm:min-h-[460px] flex items-center justify-center text-center p-6 sm:p-12">
-          
-          {/* Stylized background representing high-tech modern office space */}
-          <div className="absolute inset-0 bg-gradient-to-tr from-slate-950 via-slate-900 to-blue-950 opacity-95"></div>
-          
-          {/* Geometric perspective lines / glass office grid */}
-          <div className="absolute inset-0 opacity-15 bg-[linear-gradient(to_right,#3b82f6_1px,transparent_1px),linear-gradient(to_bottom,#3b82f6_1px,transparent_1px)] bg-[size:4rem_4rem]"></div>
-          
-          {/* Wall Branding Graphic */}
-          <div className="relative z-10 max-w-xl space-y-6 flex flex-col items-center">
-            
-            <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white text-xs font-medium">
-              <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></span>
-              <span>Gurugram • Gwalior • Saharanpur & Remote Worldwide</span>
-            </div>
-
-            <div className="flex items-center gap-3">
-              <img
-                src="/t-logo.png"
-                alt="Tattvaa Tech Logo"
-                className="w-12 h-12 object-contain drop-shadow-md"
-              />
-              <div className="text-left">
-                <div className="text-2xl font-black text-white tracking-wider">TATTVAA TECH</div>
-                <div className="text-[10px] tracking-[0.25em] text-blue-400 font-bold">IDEAS INTO IMPACT</div>
-              </div>
-            </div>
-
-            <p className="text-slate-300 text-sm sm:text-base max-w-lg leading-relaxed">
-              "We believe true innovation happens where deep engineering rigour meets clean, human-centered design."
-            </p>
-
-            {/* Play Video Button (Matching Screen 5) */}
-            <button
-              onClick={() => setVideoModalOpen(true)}
-              className="group flex items-center gap-3 px-6 py-3 rounded-full bg-blue-600 hover:bg-blue-500 text-white text-sm font-semibold shadow-xl shadow-blue-500/30 transition-all duration-300 hover:scale-105"
-            >
-              <div className="w-6 h-6 rounded-full bg-white text-blue-600 flex items-center justify-center shadow-xs">
-                <Play className="w-3.5 h-3.5 fill-current ml-0.5" />
-              </div>
-              <span>Play Video</span>
-            </button>
-          </div>
-        </div>
-
         {/* ================= 4 CORE PILLARS (Screen 5) ================= */}
         <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {pillars.map((pillar, idx) => (
@@ -228,22 +197,51 @@ export default function About({ setActivePage }) {
           ))}
         </div>
 
-        {/* ================= VISION ================= */}
-        <div className="mt-20 relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-950 via-blue-950 to-indigo-950 p-8 sm:p-12 text-white shadow-xl">
-          <div className="absolute -right-20 -top-24 h-72 w-72 rounded-full bg-blue-500/20 blur-3xl" />
-          <div className="relative grid grid-cols-1 lg:grid-cols-[1fr_auto] items-center gap-8">
-            <div className="max-w-3xl space-y-4">
-              <span className="text-xs font-bold uppercase tracking-[0.2em] text-cyan-300">Our Vision</span>
-              <h2 className="text-2xl sm:text-3xl font-extrabold">Make innovation more accessible, practical, and affordable.</h2>
-              <p className="text-sm sm:text-base leading-relaxed text-blue-100">
-                We aspire to build a globally trusted technology company that makes software, AI, robotics, automation, and digital solutions accessible to more people and organizations. At Tattvaa Tech, we don’t just provide services—we build solutions that help businesses turn ideas into real-world impact.
-              </p>
-            </div>
-            <div className="hidden lg:flex h-20 w-20 items-center justify-center rounded-3xl border border-white/15 bg-white/10">
-              <Globe className="h-10 w-10 text-cyan-300" />
-            </div>
+        <section className="mt-20" aria-labelledby="work-life-heading">
+          <div className="mb-9 text-center">
+            <span className="text-xs font-bold uppercase tracking-[0.2em] text-blue-600">
+              Our Culture
+            </span>
+            <h2
+              className="mt-2 text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-slate-900"
+              id="work-life-heading"
+            >
+              Work Life At Its Best
+            </h2>
           </div>
-        </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+            {workLifeBenefits.map(({ title, icon: BenefitIcon, color }) => (
+              <article
+                className={`work-life-card work-life-card-${color}`}
+                key={title}
+              >
+                <BenefitIcon aria-hidden="true" className="work-life-card-icon" strokeWidth={1.7} />
+                <h3>{title}</h3>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="about-mission-vision mt-20" aria-label="Our mission and corporate vision">
+          <article className="mission-vision-card">
+            <div className="mission-vision-accent" aria-hidden="true">
+              <Target className="h-6 w-6" />
+            </div>
+            <h2>Our Mission</h2>
+            <p>
+              To build high-concurrency, zero-trust software systems and autonomous AI pipelines that deliver measurable operational leverage to ambitious organizations worldwide.
+            </p>
+          </article>
+          <article className="mission-vision-card">
+            <div className="mission-vision-accent" aria-hidden="true">
+              <Eye className="h-6 w-6" />
+            </div>
+            <h2>Our Corporate Vision</h2>
+            <p>
+              To become a globally recognized AI-first engineering partner, known for technical craft, execution speed, and verified proof-of-work talent incubation.
+            </p>
+          </article>
+        </section>
 
         {/* ================= MEET OUR LEADERSHIP SECTION ================= */}
         <div className="mt-24 pt-16 border-t border-slate-200/90 text-left">
@@ -292,32 +290,6 @@ export default function About({ setActivePage }) {
 
       </div>
 
-      {/* ================= VIDEO MODAL ================= */}
-      {videoModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/75 backdrop-blur-md animate-fadeIn">
-          <div className="bg-slate-900 rounded-3xl max-w-3xl w-full p-6 border border-slate-800 shadow-2xl text-white relative">
-            <button
-              onClick={() => setVideoModalOpen(false)}
-              className="absolute top-4 right-4 p-2 rounded-full text-slate-400 hover:text-white hover:bg-slate-800"
-            >
-              <X className="w-5 h-5" />
-            </button>
-            <h3 className="text-lg font-bold mb-4 flex items-center gap-2">
-              <span className="w-2.5 h-2.5 rounded-full bg-blue-500"></span>
-              Tattvaa Tech: Life, Culture & Craft
-            </h3>
-            <div className="aspect-video bg-slate-950 rounded-xl flex flex-col items-center justify-center p-8 border border-slate-800 text-center">
-              <div className="w-16 h-16 rounded-full bg-blue-600 flex items-center justify-center mb-4 text-white shadow-lg animate-pulse">
-                <Play className="w-8 h-8 fill-current ml-1" />
-              </div>
-              <h4 className="text-base font-bold text-white mb-1">Tattvaa Tech Overview & Culture Reel</h4>
-              <p className="text-xs text-slate-400 max-w-md">
-                Experience how our engineers, designers, and AI architects collaborate on high-stakes digital transformations.
-              </p>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

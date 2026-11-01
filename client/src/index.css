@@ -19,16 +19,16 @@
   padding-top: 3rem;
 }
 
-*:not(.engineering-stack):not(.engineering-stack *):not(.partner-marquee):not(.partner-marquee *):not(.brand-marquee):not(.brand-marquee *):not(.development-lifecycle):not(.development-lifecycle *):not(.service-card):not(.service-card *):not(.tilt-card),
-*:not(.engineering-stack):not(.engineering-stack *):not(.partner-marquee):not(.partner-marquee *):not(.brand-marquee):not(.brand-marquee *):not(.development-lifecycle):not(.development-lifecycle *):not(.service-card):not(.service-card *)::before,
-*:not(.engineering-stack):not(.engineering-stack *):not(.partner-marquee):not(.partner-marquee *):not(.brand-marquee):not(.brand-marquee *):not(.development-lifecycle):not(.development-lifecycle *):not(.service-card):not(.service-card *)::after {
+*:not(.engineering-stack):not(.engineering-stack *):not(.partner-marquee):not(.partner-marquee *):not(.brand-marquee):not(.brand-marquee *):not(.development-lifecycle):not(.development-lifecycle *):not(.service-card):not(.service-card *):not(.contact-sculpture):not(.contact-sculpture *):not(.location-cards):not(.location-cards *):not(.whatsapp-widget):not(.whatsapp-widget *):not(.home-hero-orbit-stage):not(.home-hero-orbit-stage *):not(.tilt-card),
+*:not(.engineering-stack):not(.engineering-stack *):not(.partner-marquee):not(.partner-marquee *):not(.brand-marquee):not(.brand-marquee *):not(.development-lifecycle):not(.development-lifecycle *):not(.service-card):not(.service-card *):not(.contact-sculpture):not(.contact-sculpture *):not(.location-cards):not(.location-cards *):not(.home-hero-orbit-stage):not(.home-hero-orbit-stage *)::before,
+*:not(.engineering-stack):not(.engineering-stack *):not(.partner-marquee):not(.partner-marquee *):not(.brand-marquee):not(.brand-marquee *):not(.development-lifecycle):not(.development-lifecycle *):not(.service-card):not(.service-card *):not(.contact-sculpture):not(.contact-sculpture *):not(.location-cards):not(.location-cards *):not(.whatsapp-widget):not(.whatsapp-widget *):not(.home-hero-orbit-stage):not(.home-hero-orbit-stage *)::after {
   animation: none !important;
   transition: none !important;
   scroll-behavior: auto !important;
 }
 
-*:not(.engineering-stack):not(.engineering-stack *):not(.partner-marquee):not(.partner-marquee *):not(.brand-marquee):not(.brand-marquee *):not(.development-lifecycle):not(.development-lifecycle *):not(.service-card):not(.service-card *):not(.tilt-card):hover,
-*:not(.engineering-stack):not(.engineering-stack *):not(.partner-marquee):not(.partner-marquee *):not(.brand-marquee):not(.brand-marquee *):not(.development-lifecycle):not(.development-lifecycle *):not(.service-card):not(.service-card *):not(.tilt-card):active {
+*:not(.engineering-stack):not(.engineering-stack *):not(.partner-marquee):not(.partner-marquee *):not(.brand-marquee):not(.brand-marquee *):not(.development-lifecycle):not(.development-lifecycle *):not(.service-card):not(.service-card *):not(.contact-sculpture):not(.contact-sculpture *):not(.location-cards):not(.location-cards *):not(.whatsapp-widget):not(.whatsapp-widget *):not(.home-hero-orbit-stage):not(.home-hero-orbit-stage *):not(.tilt-card):hover,
+*:not(.engineering-stack):not(.engineering-stack *):not(.partner-marquee):not(.partner-marquee *):not(.brand-marquee):not(.brand-marquee *):not(.development-lifecycle):not(.development-lifecycle *):not(.service-card):not(.service-card *):not(.contact-sculpture):not(.contact-sculpture *):not(.location-cards):not(.location-cards *):not(.whatsapp-widget):not(.whatsapp-widget *):not(.home-hero-orbit-stage):not(.home-hero-orbit-stage *):not(.tilt-card):active {
   transform: none !important;
   translate: none !important;
   scale: none !important;
@@ -69,6 +69,49 @@
     var(--tilt-shadow-x, 0) var(--tilt-shadow-y, 18px) 40px rgba(15, 23, 42, 0.17),
     0 8px 20px color-mix(in srgb, var(--service-accent, var(--tilt-accent, #06b6d4)) 12%, transparent);
   will-change: transform;
+}
+
+.contact-sculpture-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 11rem;
+  height: 7rem;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(96, 165, 250, 0.3), rgba(56, 189, 248, 0.11) 46%, transparent 74%);
+  filter: blur(12px);
+  transform: translate(-50%, -50%);
+}
+
+.contact-sculpture-float {
+  position: absolute;
+  inset: 0;
+  animation: contact-sculpture-float 5.5s ease-in-out infinite;
+}
+
+.contact-sculpture-model {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  filter: drop-shadow(0 18px 20px rgba(37, 99, 235, 0.18));
+  transform: perspective(850px) rotateX(var(--sculpture-rotate-x, 0deg)) rotateY(var(--sculpture-rotate-y, 0deg));
+  transition: transform 450ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+@keyframes contact-sculpture-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-9px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-sculpture-float {
+    animation: none;
+  }
+
+  .contact-sculpture-model {
+    transition: none;
+  }
 }
 
 .service-card-content {
@@ -712,9 +755,138 @@
   }
 }
 
+@media (min-width: 1024px) {
+  .engineering-stack {
+    margin-top: 2.25rem;
+    padding: 1.5rem 1rem;
+  }
+
+  .stack-heading {
+    margin-bottom: 1.15rem;
+  }
+
+  .stack-eyebrow {
+    padding: 0.4rem 0.75rem;
+    font-size: 0.62rem;
+  }
+
+  .stack-heading h2 {
+    margin-top: 0.65rem;
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+  }
+
+  .stack-heading p {
+    margin-top: 0.45rem;
+    font-size: 0.84rem;
+    line-height: 1.45;
+  }
+
+  .stack-marquee-list {
+    gap: 0.4rem;
+  }
+
+  .stack-marquee-window {
+    padding: 0.1rem 0;
+  }
+
+  .stack-marquee-group {
+    gap: 0.65rem;
+    padding-right: 0.65rem;
+  }
+
+  .stack-card {
+    display: grid;
+    min-height: 4.65rem;
+    grid-template-columns: 2rem minmax(0, 1fr);
+    grid-template-rows: auto auto auto;
+    align-items: center;
+    column-gap: 0.6rem;
+    padding: 0.5rem 0.65rem;
+    border-radius: 0.8rem;
+  }
+
+  .stack-card-top {
+    display: contents;
+  }
+
+  .stack-card-icon {
+    width: 1.85rem;
+    height: 1.85rem;
+    grid-column: 1;
+    grid-row: 1 / 4;
+    border-radius: 0.6rem;
+  }
+
+  .stack-card-icon svg {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .stack-category {
+    max-width: 100%;
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: start;
+    padding: 0.12rem 0.35rem;
+    font-size: 0.52rem;
+  }
+
+  .stack-card-title {
+    overflow: hidden;
+    grid-column: 2;
+    grid-row: 2;
+    margin-top: 0.16rem;
+    font-size: 0.8rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .stack-card-description {
+    display: none;
+  }
+
+  .stack-card-footer {
+    min-width: 0;
+    grid-column: 2;
+    grid-row: 3;
+    gap: 0.3rem;
+    margin-top: 0.08rem;
+    padding-top: 0;
+    font-size: 0.53rem;
+  }
+
+  .stack-status-dot {
+    width: 0.28rem;
+    height: 0.28rem;
+  }
+
+  .stack-use-label {
+    min-width: 0;
+    min-height: 0;
+    overflow: hidden;
+    padding: 0.08rem 0.3rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow-wrap: normal;
+  }
+}
+
 @media (max-width: 1023px) {
   .stack-card {
     flex-basis: clamp(14rem, 42vw, 20rem);
+  }
+
+  .engineering-stack {
+    margin-top: 3rem;
+    padding: 2.5rem 1.25rem;
+  }
+
+  .stack-heading {
+    margin-bottom: 1.75rem;
+  }
+
+  .stack-card {
+    min-height: 10rem;
   }
 }
 

@@ -1,0 +1,113 @@
+.work-life-card {
+  display: flex;
+  min-height: 11rem;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1.75rem 1.25rem;
+  border: 1px solid #f1f5f9;
+  border-radius: 1.15rem;
+  background: #f8fafc;
+  text-align: center;
+}
+
+.work-life-card-icon {
+  width: 2.65rem;
+  height: 2.65rem;
+  color: var(--work-life-accent);
+}
+
+.work-life-card h3 {
+  max-width: 14rem;
+  margin: 0;
+  color: #334155;
+  font-size: 0.96rem;
+  font-weight: 550;
+  line-height: 1.55;
+}
+
+.work-life-card-pink {
+  --work-life-accent: #ec4899;
+}
+
+.work-life-card-purple {
+  --work-life-accent: #d946ef;
+}
+
+.work-life-card-blue {
+  --work-life-accent: #0ea5e9;
+}
+
+.work-life-card-teal {
+  --work-life-accent: #5bbfc1;
+}
+
+.work-life-card-orange {
+  --work-life-accent: #fb923c;
+}
+
+.work-life-card-cyan {
+  --work-life-accent: #14b8a6;
+}
+
+.work-life-card-rose {
+  --work-life-accent: #fb7185;
+}
+
+.work-life-card-indigo {
+  --work-life-accent: #4f46e5;
+}
+
+.about-mission-vision {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+.mission-vision-card {
+  min-width: 0;
+  padding: clamp(1.5rem, 3vw, 2.75rem);
+  border: 1px solid #dbeafe;
+  border-radius: 1.75rem;
+  background: linear-gradient(145deg, #fff 0%, #f8fbff 100%);
+  box-shadow: 0 16px 38px rgba(15, 23, 42, 0.06);
+}
+
+.mission-vision-accent {
+  display: flex;
+  height: 2rem;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2rem;
+  border: 1px solid #bae6fd;
+  border-radius: 9999px;
+  color: #0891b2;
+  background: linear-gradient(90deg, #eff6ff, #ecfeff);
+}
+
+.mission-vision-card h2 {
+  margin: 0 0 0.85rem;
+  color: #0f172a;
+  font-size: clamp(1.3rem, 2vw, 1.65rem);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+}
+
+.mission-vision-card p {
+  margin: 0;
+  color: #475569;
+  font-size: clamp(1rem, 1.4vw, 1.15rem);
+  line-height: 1.65;
+}
+
+@media (max-width: 767px) {
+  .about-mission-vision {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1rem;
+  }
+
+  .mission-vision-accent {
+    margin-bottom: 1.4rem;
+  }
+}
